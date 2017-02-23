@@ -98,19 +98,24 @@ public class alpha1 extends javax.swing.JFrame implements ActionListener{
         try {
             Object source = e.getSource();
             if (source == check) {
+                //парсваме данните от TXTfields 
                 degtake = parseInt(intf.getText());
                 lngt_of1 = parseInt(lngt1_tf.getText());
                 lngt_of2 = parseInt(lngt2_tf.getText());
+                //създаваме обект за кал. 
                 degrecalc ramo2 = new degrecalc(degtake,lngt_of2);
                 grad_lb.setText("Става 1 има ъгъл от : " + ramo2.getDegree());
+                //сетваме променливите в изображението
                 pic.setStick1(lngt_of1);
                 pic.setStick2(lngt_of2);
                 pic.setStick2x2(ramo2.getX());
                 pic.setStick2y2(ramo2.getY());
                 pic.setdegre(ramo2.getDegree());
+                //попринцип става автоматично но за всеки случеи изискваме repaint
                 this.repaint();
             }
         } catch (Exception exc) {
+            //изписва грешката в систем конзолата и в popup прозорец
             System.out.println(exc);
             JOptionPane.showMessageDialog(this, exc, "ERROR",JOptionPane.OK_OPTION);
         }
