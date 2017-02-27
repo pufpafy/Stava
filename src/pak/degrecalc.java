@@ -38,19 +38,11 @@ public class degrecalc {
     public void cord () throws Exception {
         double x1 , y1;
         double beta,alpha;
-        //необходимо е да се използват два различни метода зависимосто от дали е над 90 или под
-        //if ( degre >= 0 && degre <= 360 ) {
-            alpha = (degre*Math.PI) / (double)180; //трябва да се превърнат в радиани за sin ф.
-            beta = (double)90 - degre;
-            beta = (beta*Math.PI) / (double)180; //трябва да се превърнат в радиани за sin ф.
-            x1 = (double)pasd_lngt2 * Math.sin(alpha);
-            y1 = (double)pasd_lngt2 * Math.sin(beta);
-            /*
-        }else {
-            //в случей че ислезне от 0-180 границата
-            throw new outofboudsException("възникна грешка при смятане на кординати");
-        }   // да се добавявт още методи ако ще се работи с над 180 градуса
-            */
+        alpha = (degre*Math.PI) / (double)180; //трябва да се превърнат в радиани за sin ф.
+        beta = (double)90 - degre;
+        beta = (beta*Math.PI) / (double)180; //трябва да се превърнат в радиани за sin ф.
+        x1 = (double)pasd_lngt2 * Math.sin(alpha);
+        y1 = (double)pasd_lngt2 * Math.sin(beta);
         //задавамеги на полетата
             
         cordX = (int)x1;
