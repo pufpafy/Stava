@@ -160,66 +160,7 @@ public class alpha1 extends javax.swing.JFrame implements ActionListener {
             System.out.println("ERROR" + exc);
             JOptionPane.showMessageDialog(this, exc, "ERROR", JOptionPane.OK_OPTION);
         }
-            
-        
-        
-        
-        
-        /*
-        int i=0;
-        int[] degtake = null, lngt_of = null;
-        try {
-            Object source = e.getSource();
-            if (source == check) {
-                System.out.println("Action detected");
-                //парсваме данните от TXTfields
-                degtake = new int[3];
-                for (i=0;i < 3 ;i++) {
-                    degtake[i] = parseInt(intf[i].getText());
-                }
-                lngt_of = new int[4];
-                for (i=0;i < 4 ;i++) {
-                    lngt_of[i] = parseInt(lngt_tf[i].getText());
-                }
-                //създаваме обект за кал. 
-                degrecalc[] ramo = new degrecalc[3] ;
-                for (i=0;i < 3;i++) {
-                    ramo[i] = new degrecalc( degtake[i] ,lngt_of[i+1]);
-                }
-                //калкулиране на ъгли
-                for (i=0;i < 3;i++) {
-                    grad_lb[i].setText("Става " + (i + 1) + "има ъгъл от : " + ramo[i].getDegree());
-                }
-                
-                //сетваме променливите в изображението
-                int[] X = new int[3];
-                int[] Y = new int[3];
-                double[] degs = new double[3];
-                for (i=0;i < 3;i++) {
-                    X[i] = ramo[i].getX();
-                    Y[i] = ramo[i].getY();
-                    degs[i] = ramo[i].getDegree();
-                }
-                pic.setSticks(lngt_of);
-                pic.setEnd(X, Y);
-                pic.setdegre(degs);
-                
-                this.repaint();     //попринцип става автоматично но за всеки случеи изискваме repaint
-            }
-        } catch (Exception exc) {
-            //изписва грешката в систем конзолата и в popup прозорец
-            System.out.println("ERROR" + exc);
-            JOptionPane.showMessageDialog(this, exc, "ERROR", JOptionPane.OK_OPTION);
-        }
-        */
     }
-
-    /*
-     @Override
-    public void adjustmentValueChanged(AdjustmentEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-     */
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
