@@ -70,12 +70,14 @@ public class ramo1Paint extends JPanel{
     public void calcs () {
         try {
             int i = 0, med=0, tot=0;
+            //масив от класове за калкулации
             degrecalc[] stava = new degrecalc[count];
             for (i=0;i < count;i++) {
                 tot = tot + from[i];
                 med = i*255 + tot;
                 stava[i] = new degrecalc(med,sticks[i+1]);
             }
+            //прехвърляме резултатите в променливите
             for (i=0;i < count;i++) {
                 if (i==0) {
                     degre[i] = stava[i].getDegree() ;
