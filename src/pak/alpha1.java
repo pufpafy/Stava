@@ -12,7 +12,9 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
+import java.io.InputStream;
 import static java.lang.Integer.*;
+import java.util.Enumeration;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -22,13 +24,14 @@ import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.comm.*;
 
 /**
  *
  * @author George
  */
 // ver. 0.0.3
-public class alpha1 extends javax.swing.JFrame implements ActionListener {
+public class alpha1 extends javax.swing.JFrame implements ActionListener , SerialPortEventListener {
 
     /**
      * Creates new form alpha1
@@ -41,6 +44,10 @@ public class alpha1 extends javax.swing.JFrame implements ActionListener {
     private JTextField[] intf, lngt_tf;
     private JButton check;
     private JScrollBar scrbar;
+    private InputStream inputStream;
+    private SerialPort serialPort;
+    private static CommPortIdentifier portId;
+    private static Enumeration portList;
 
     public alpha1() {
         super("stava");
@@ -115,6 +122,16 @@ public class alpha1 extends javax.swing.JFrame implements ActionListener {
             }
             container.add(fields_opt);
             container.add(fields2);
+            //serial test
+            portList = CommPortIdentifier.getPortIdentifiers();
+            portId = (CommPortIdentifier) portList.nextElement();
+            //
+            serialPort = (SerialPort) portId.open("MainClassApp", 2000);
+            inputStream = serialPort.getInputStream();
+            serialPort.addEventListener(this);
+            serialPort.notifyOnDataAvailable(true);
+            serialPort.setSerialPortParams(9600, SerialPort.DATABITS_8, SerialPort.STOPBITS_1, SerialPort.PARITY_NONE);
+            //SerialPort.
             //размер и видимост (финализиране)
             this.setSize(900, 900);
             this.setVisible(true);
@@ -159,6 +176,40 @@ public class alpha1 extends javax.swing.JFrame implements ActionListener {
             //изписва грешката в систем конзолата и в popup прозорец
             System.out.println("ERROR" + exc);
             JOptionPane.showMessageDialog(this, exc, "ERROR", JOptionPane.OK_OPTION);
+        }
+    }
+    
+    @Override
+    public void serialEvent(SerialPortEvent event) {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (portId.getPortType() == CommPortIdentifier.PORT_SERIAL && portId.getName().equals("COM7")) { 
+            switch (event.getEventType()) {
+                case SerialPortEvent.BI:
+                case SerialPortEvent.OE:
+                case SerialPortEvent.FE:
+                case SerialPortEvent.PE:
+                case SerialPortEvent.CD:
+                case SerialPortEvent.CTS:
+                case SerialPortEvent.DSR:
+                case SerialPortEvent.RI:
+                case SerialPortEvent.OUTPUT_BUFFER_EMPTY:
+                  break;
+                case SerialPortEvent.DATA_AVAILABLE:
+                  byte[] readBuffer = new byte[20];
+
+                  try {
+                    while (inputStream.available() > 0) {
+                      int numBytes = inputStream.read(readBuffer);
+                    }
+                    if (intf[0] != null) {
+                    intf[0].setText(new String(readBuffer));
+                    }
+                  } catch (Exception e) {
+                       System.out.println("ERROR" + e);
+                       JOptionPane.showMessageDialog(this, e, "ERROR", JOptionPane.OK_OPTION);
+                  }
+                  break;
+            }
         }
     }
     /**
@@ -206,4 +257,7 @@ public class alpha1 extends javax.swing.JFrame implements ActionListener {
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 */
+
+    
+
 }
